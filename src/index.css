@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg:          #F5F3EF;
+  --bg-card:     #FFFFFF;
+  --bg-inner:    #F0EDE8;
+  --border:      #E0DDD8;
+  --text:        #1A1A1A;
+  --muted:       #888888;
+  --faint:       #AAAAAA;
+  --accent:      #FF6B35;
+  --accent-dark: #E55A25;
+  --accent-bg:   #FF6B3515;
+  --green:       #00A868;
+  --purple:      #7C6AF5;
+  --amber:       #D97706;
+}
+
+:root, :root[data-theme="light"] {
+  --bg:          #F5F3EF;
+  --bg-card:     #FFFFFF;
+  --bg-inner:    #F0EDE8;
+  --border:      #E0DDD8;
+  --text:        #1A1A1A;
+  --muted:       #888888;
+  --faint:       #AAAAAA;
+  --accent:      #FF6B35;
+  --accent-dark: #E55A25;
+  --accent-bg:   #FF6B3515;
+  --green:       #00A868;
+  --purple:      #7C6AF5;
+  --amber:       #D97706;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg:          #080810;
+  --bg-card:     #0E0E1A;
+  --bg-inner:    #13131F;
+  --border:      #1E1E30;
+  --text:        #F0F0FF;
+  --muted:       #5A5A7A;
+  --faint:       #3A3A5A;
+  --accent:      #FF6B35;
+  --accent-dark: #E55A25;
+  --accent-bg:   #FF6B3515;
+  --green:       #00F5A0;
+  --purple:      #B8A8FF;
+  --amber:       #F59E0B;
+  color-scheme: dark;
+}
+
+* { font-family: 'Space Grotesk', sans-serif; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); margin: 0; }
+
+.card   { background: var(--bg-card);  border: 0.5px solid var(--border); border-radius: 12px; }
+.inner  { background: var(--bg-inner); border: 0.5px solid var(--border); border-radius: 8px; }
+.input  { background: var(--bg-card); border: 0.5px solid var(--border); color: var(--text); width: 100%; font-size: 14px; padding: 12px 14px; border-radius: 10px; outline: none; font-family: 'Space Grotesk', sans-serif; }
+.input:focus { border-color: var(--accent); }
+.input::placeholder { color: var(--faint); }
+.btn-primary { background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 14px; border-radius: 12px; border: none; cursor: pointer; font-family: 'Space Grotesk', sans-serif; width: 100%; transition: opacity 0.15s; }
+.btn-primary:hover { opacity: 0.85; }
+.btn-secondary { background: var(--bg-inner); color: var(--muted); font-size: 13px; padding: 10px 16px; border-radius: 10px; border: 0.5px solid var(--border); cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: all 0.15s; }
+.btn-secondary:hover { background: var(--border); }
+
+/* Tags */
+.tag-aberto     { background: #FF6B3515; color: #E55A25;  border: 0.5px solid #FF6B3530; }
+.tag-preparando { background: #D9770615; color: #D97706;  border: 0.5px solid #D9770630; }
+.tag-pronto     { background: #00A86815; color: #00A868;  border: 0.5px solid #00A86830; }
+.tag-fechado    { background: #88888815; color: #888888;  border: 0.5px solid #88888830; }
+
+/* PWA */
+@media (display-mode: standalone) {
+  body { padding-top: env(safe-area-inset-top); }
+}
