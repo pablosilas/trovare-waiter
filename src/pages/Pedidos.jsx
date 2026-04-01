@@ -9,6 +9,7 @@ const statusConfig = {
   preparando: { label: "Preparando", color: "#D97706", bg: "#D9770615" },
   pronto: { label: "Pronto!", color: "#00A868", bg: "#00A86815" },
   aguardando_pagamento: { label: "Aguard. pagamento", color: "#7C6AF5", bg: "#7C6AF515" },
+  retirado: { label: "Retirado", color: "#00A868", bg: "#00A86815" },
   cancelado: { label: "Cancelado", color: "#FF3D6E", bg: "#FF3D6E15" },
   fechado: { label: "Fechado", color: "#888888", bg: "#88888815" },
 };
@@ -47,6 +48,7 @@ export default function Pedidos() {
     });
     socket.on("pedido:fechado", () => fetchPedidos());
     socket.on("mesa:fechada", () => fetchPedidos());
+    socket.on("pedido:retirado", () => fetchPedidos());
     return () => {
       socket.off("pedido:novo");
       socket.off("pedido:atualizado");
@@ -54,6 +56,7 @@ export default function Pedidos() {
       socket.off("pedido:status");
       socket.off("pedido:fechado");
       socket.off("mesa:fechada");
+      socket.on("pedido:retirado", () => fetchPedidos());
     };
   }, [fetchPedidos]);
 
@@ -63,6 +66,15 @@ export default function Pedidos() {
       await fetchPedidos();
     } catch (e) {
       console.error("Erro ao fechar mesa:", e);
+    }
+  }
+
+  async function handleRetirar(pedidoId) {
+    try {
+      await api.patch(`/food/pedidos/${pedidoId}/retirar`);
+      await fetchPedidos();
+    } catch (e) {
+      console.error("Erro ao retirar pedido:", e);
     }
   }
 
@@ -270,6 +282,18 @@ export default function Pedidos() {
                                 background: "#FF3D6E", color: "#fff",
                               }}>
                               Cancelar pedido
+                            </button>
+                          )}
+                          {p.status === "pronto" && (
+                            <button
+                              onClick={e => { e.stopPropagation(); handleRetirar(p.id); }}
+                              style={{
+                                fontSize: "11px", padding: "6px 12px", borderRadius: "8px",
+                                cursor: "pointer", border: "none", fontWeight: 600,
+                                background: "#00A868", color: "#fff", marginTop: "6px",
+                                width: "100%",
+                              }}>
+                              ✓ Confirmar retirada
                             </button>
                           )}
                         </div>
